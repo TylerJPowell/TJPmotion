@@ -1,0 +1,280 @@
+* {
+  user-select: none;
+}
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/* Base */
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+  background: #F5CB5C;
+  color: #eaeaea;
+  font-family: 'Adventor', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+@font-face {
+  font-family: 'Adventor';
+  src: url('texgyreadventor-bold.otf') format('opentype');
+}
+
+/* Navigation */
+nav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  list-style: none;
+  padding: 2rem 0;
+  margin: 0;
+  background-color: transparent;
+}
+
+nav a {
+  color: #eaeaea;
+  text-decoration: none;
+  font-size: 1.15rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+nav a:hover {
+  transform: translateY(-3px);
+  opacity: 0.8;
+}
+
+/* Main Content */
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Page Content */
+.page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.page-content h1 {
+  font-size: 3rem;
+  text-transform: uppercase;
+  font-weight: 300;
+  margin: 0;
+}
+
+.page-content p {
+  font-size: 1.25rem;
+  opacity: 0.8;
+  max-width: 600px;
+}
+
+/* Home Links */
+.home-links {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.home-links-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.home-links a {
+  font-family: 'Adventor', sans-serif;
+  font-size: 2.5rem;
+  color: #242423;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin: 0;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+  text-align: left;
+  display: block;
+  position: relative;
+  z-index: 100;
+}
+
+.home-links a:hover {
+  transform: translateY(-4px) scale(1.05);
+  opacity: 0.8;
+}
+
+/* Layout Boxes */
+.home-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.home-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 0.5rem;
+}
+
+.home-box p {
+  font-size: 2.5rem;
+  color: #242423;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Corners */
+.corner-tjp {
+  position: absolute;
+  font-size: 1rem;
+  color: #e8eddf;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  left: 0;
+  bottom: calc(50% + 150px);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.corner-motion {
+  position: absolute;
+  font-size: 1rem;
+  color: #e8eddf;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transform: rotate(90deg);
+  right: -105px;
+  top: calc(50% - 100px);
+  transform-origin: left top;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Squares */
+.top-right-squares {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.square {
+  width: 60px;
+  height: 60px;
+}
+
+.square.black {
+  background-color: #242423;
+}
+
+.square.white {
+  background-color: #e8eddf;
+}
+
+/* Floating Circle */
+.floating-circle {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background-color: #e8eddf;
+  border-radius: 500%;
+  box-shadow: -50px 50px 105px rgba(0, 0, 0, 0.2);
+  z-index: 50;
+  pointer-events: none;
+  transition: none;
+}
+
+/* Frame and Labeling */
+.corner-frame {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-top: 2px solid #242423;
+  border-left: 2px solid #242423;
+}
+
+.label-tag {
+  font-size: 0.75rem;
+  color: #242423;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 0.25rem;
+  font-family: monospace;
+}
+/* Base grid already has this, but expand its size to prevent edge gaps */
+.grid-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background-image: 
+    linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(0, 0);
+}
+
+/* Add a noise overlay for texture */
+.noise-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-image: url('your-noise-texture.png'); /* grain PNG or GIF */
+  background-repeat: repeat;
+  opacity: 0.07;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Circle already styled, just ensure it has z-index for midground */
+.floating-circle {
+  z-index: 3;
+}
+@keyframes jitter {
+  0%   { transform: translate(0px, 0px) rotate(0deg); }
+  25%  { transform: translate(-5px, 5px) rotate(-0.5deg); }
+  50%  { transform: translate(5px, -5px) rotate(0.5deg); }
+  75%  { transform: translate(-0.5px, 0.5px) rotate(-0.2deg); }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+
+.jitter-text {
+  display: inline-block;
+  animation: jitter 0.2s infinite;
+}
+.social-icons a {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.social-icons a:hover {
+  transform: scale(1.5);
+  opacity: .2;
+}
+
