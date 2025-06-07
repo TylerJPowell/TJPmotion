@@ -3,25 +3,265 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tyler Powell | About</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="reel.html">Reel</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
+  <title>Tyler Powell | Home</title>
 
-  <main>
-    <div class="page-content">
-      <h1>About</h1>
-      <p>This is the about page.</p>
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    
+    
+    @font-face {
+      font-family: 'Adventor';
+      src: url('texgyreadventor-bold.otf') format('opentype');
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #F5CB5C;
+      font-family: 'Adventor', sans-serif;
+    }
+
+    .top-right-squares {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 10;
+    }
+
+    .square {
+      width: 60px;
+      height: 60px;
+    }
+
+    .square.black {
+      background-color: #242423;
+    }
+
+    .square.white {
+      background-color: #e8eddf;
+    }
+
+    .floating-circle {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background-color: #e8eddf;
+      border-radius: 50%;
+      box-shadow: -50px 50px 105px rgba(0, 0, 0, 0.2);
+      z-index: 50;
+      pointer-events: none;
+    }
+
+    .grid-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .grid-overlay {
+      background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .corner-frame {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-top: 2px solid #242423;
+      border-left: 2px solid #242423;
+      z-index: 10;
+    }
+    .label-tag {
+      font-size: 0.75rem;
+      color: #242423;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.7;
+      font-family: monospace;
+    }
+  
+  
+  </style>
+</head>
+<body class="fade-in">
+<main>
+  
+  <nav class="top-nav">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="reel.html">Reel</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+<div class="about-header">
+  <h1>about me.</h1>
+</div><div class="about-image-container">
+  <img src="Flexing-Me-Masked.png" alt="Tyler J. Powell" class="about-image" />
+</div>
+
+<div class="about-body">
+  <p class="intro-line">I'm Tyler J. Powell, a videographer based in Sarasota, Florida.</p>
+  <p>These days, I'm behind the lens working with local brands, athletes, and putting out tutorials to give back to the community that's given me a chance to thrive.</p>
+  <p>My style blends hype, emotion, and culture into every project — and I'm just getting started.</p>
+  <p class="tap-line">Make sure to <a href="contact.html" class="tap-in-word">tap in.</a></p>
+</div>
+
+
+      <!-- Top Squares -->
+      <div class="top-right-squares">
+        <div class="square black"></div>
+        <div class="square white"></div>
+      </div>
+
+      <!-- Grid, Tags, Links, etc... -->
+
+
+    <!-- Grid  -->
+    <div class="grid-overlay"></div>
+
+
+    <!-- Corner Frames -->
+    <div class="corner-frame" style="top: 2rem; left: 2rem;"></div>
+    <div class="corner-frame" style="bottom: 2rem; left: 2rem; transform: scaleY(-1);"></div>
+    <div class="corner-frame" style="bottom: 2rem; right: 2rem; transform: scale(-1, -1);"></div>
+
+    <!-- Tags -->
+    <div style="position: absolute; top: 2.25rem; left: 2.25rem; z-index: 10;">
+      <span class="label-tag">[CREATIVE]</span>
     </div>
-  </main>
+    <div style="position: absolute; bottom: 2.25rem; left: 2.25rem; z-index: 10;">
+      <span class="label-tag">[MEDIA]</span>
+    </div>
+    <div style="position: absolute; bottom: 2.25rem; right: 2.25rem; z-index: 10;">
+      <span class="label-tag">[STORYTELLER]</span>
+    </div>
+
+    <!-- Circle -->
+    <div class="floating-circle"></div>
+    </div>
+  </div>
+</main>
+  <!-- Parallax Script -->
+<script>
+  const grid = document.querySelector('.grid-overlay');
+  const floatingCircle = document.querySelector('.floating-circle');
+  const aboutImage = document.querySelector('.about-image'); // define it here
+
+  let targetX = 0, targetY = 0;
+  let currentX = 0, currentY = 0;
+
+  document.addEventListener("mousemove", (e) => {
+    targetX = (e.clientX / window.innerWidth - 0.5);
+    targetY = (e.clientY / window.innerHeight - 0.5);
+  });
+
+  function lerp(start, end, factor) {
+    return start + (end - start) * factor;
+  }
+
+  function animateParallax() {
+    currentX = lerp(currentX, targetX, 0.08);
+    currentY = lerp(currentY, targetY, 0.08);
+
+    const x = currentX;
+    const y = currentY;
+
+    grid.style.transform = `translate(${x * 40}px, ${y * 40}px)`;
+    floatingCircle.style.transform = `translate(${x * 80}px, ${y * 80}px)`;
+
+    if (aboutImage) {
+      aboutImage.style.transform = `translate(${x * 60}px, ${y * 60}px)`; // float image
+    }
+
+    requestAnimationFrame(animateParallax);
+  }
+
+  animateParallax();
+</script>
+
+
+  <!-- Wiggle Animation Script -->
+  <script>
+    window.onload = () => {
+      const circle = document.querySelector('.floating-circle');
+      let time = 0;
+      const phaseX = Math.random() * 1000;
+      const phaseY = Math.random() * 1000;
+
+      const size = 300;
+      const margin = 50;
+      const usableWidth = window.innerWidth - size - margin * 2;
+      const usableHeight = window.innerHeight - size - margin * 2;
+
+      const baseX = margin + usableWidth / 2;
+      const baseY = margin + usableHeight / 2;
+
+      const ampX = usableWidth / 2;
+      const ampY = usableHeight / 2;
+
+      function wiggle(base, freq, amp, phase) {
+        return base + Math.sin(time * freq + phase) * amp;
+      }
+
+      function animate() {
+        const x = wiggle(baseX, 0.0005, ampX, phaseX);
+        const y = wiggle(baseY, 0.0005, ampY, phaseY);
+
+        circle.style.left = `${x}px`;
+        circle.style.top = `${y}px`;
+
+        const offsetX = (currentX || 0) * 80;
+        const offsetY = (currentY || 0) * 80;
+        circle.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+
+        time += 1;
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    };
+  </script>
+  <footer style="
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  font-family: monospace;
+  color: #242423;
+  opacity: 1;
+  z-index: 1000;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+">
+  © 2025
+</footer>
+<div class="social-icons" style="position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; gap: 1.5rem; z-index: 1000">
+  <!-- Instagram -->
+  <a href="https://www.instagram.com/tjpmotion" target="_blank" aria-label="Instagram">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="#242423" xmlns="http://www.w3.org/2000/svg" style="opacity: 1;">
+      <path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.9.2 2.4.4.6.2 1 .5 1.5 1 .4.4.8.9 1 1.5.2.5.3 1.2.4 2.4.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.9-.4 2.4-.2.6-.5 1-1 1.5-.4.4-.9.8-1.5 1-.5.2-1.2.3-2.4.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.9-.2-2.4-.4-.6-.2-1-.5-1.5-1-.4-.4-.8-.9-1-1.5-.2-.5-.3-1.2-.4-2.4C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.9.4-2.4.2-.6.5-1 1-1.5.4-.4.9-.8 1.5-1 .5-.2 1.2-.3 2.4-.4C8.4 2.2 8.8 2.2 12 2.2m0-2.2C8.7 0 8.3 0 7 .1c-1.3.1-2.2.3-3 .6-.8.3-1.5.7-2.2 1.3C1 2.7.6 3.4.3 4.2.1 5 .1 5.9 0 7.2 0 8.3 0 8.7 0 12s0 3.7.1 4.8c.1 1.3.3 2.2.6 3 .3.8.7 1.5 1.3 2.2.6.6 1.3 1 2.2 1.3.8.3 1.7.5 3 .6 1.1.1 1.5.1 4.8.1s3.7 0 4.8-.1c1.3-.1 2.2-.3 3-.6.8-.3 1.5-.7 2.2-1.3.6-.6 1-1.3 1.3-2.2.3-.8.5-1.7.6-3 .1-1.1.1-1.5.1-4.8s0-3.7-.1-4.8c-.1-1.3-.3-2.2-.6-3-.3-.8-.7-1.5-1.3-2.2-.6-.6-1.3-1-2.2-1.3-.8-.3-1.7-.5-3-.6C15.7 0 15.3 0 12 0z"/>
+      <path d="M12 5.8c-3.4 0-6.2 2.8-6.2 6.2S8.6 18.2 12 18.2 18.2 15.4 18.2 12 15.4 5.8 12 5.8zm0 10.2c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4zM18.4 4.6a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/>
+    </svg>
+  </a>
+
+  <!-- YouTube -->
+  <a href="https://www.youtube.com/@TJPmotion" target="_blank" aria-label="YouTube">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="#242423" xmlns="http://www.w3.org/2000/svg" style="opacity: 1;">
+      <path d="M21.8 8.001c-.2-1.5-1.4-2.6-2.8-2.7C16.5 5 12 5 12 5s-4.5 0-7 .3c-1.4.1-2.6 1.2-2.8 2.7C2 9.7 2 12 2 12s0 2.3.2 4c.2 1.5 1.4 2.6 2.8 2.7 2.5.3 7 .3 7 .3s4.5 0 7-.3c1.4-.1 2.6-1.2 2.8-2.7.2-1.7.2-4 .2-4s0-2.3-.2-4zM10 15V9l5 3-5 3z"/>
+    </svg>
+  </a>
+</div>
+
+
 </body>
 </html>

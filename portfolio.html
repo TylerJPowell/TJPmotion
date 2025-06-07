@@ -5,23 +5,226 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tyler Powell | Portfolio</title>
   <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="reel.html">Reel</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
+  <style>
+    @font-face {
+      font-family: 'Adventor';
+      src: url('texgyreadventor-bold.otf') format('opentype');
+    }
 
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #F5CB5C;
+      font-family: 'Adventor', sans-serif;
+    }
+
+    main {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .section-nav {
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .section-link {
+      font-size: 4rem;
+      color: #242423;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .section-link:hover {
+      transform: translateY(-6px);
+      opacity: 0.8;
+    }
+
+    .top-right-squares {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 10;
+    }
+
+    .square {
+      width: 60px;
+      height: 60px;
+    }
+
+    .square.black {
+      background-color: #242423;
+    }
+
+    .square.white {
+      background-color: #e8eddf;
+    }
+
+    .floating-circle {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background-color: #e8eddf;
+      border-radius: 50%;
+      box-shadow: -50px 50px 105px rgba(0, 0, 0, 0.2);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .grid-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .corner-frame {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-top: 2px solid #242423;
+      border-left: 2px solid #242423;
+      z-index: 10;
+    }
+
+    .label-tag {
+      font-size: 0.75rem;
+      color: #242423;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.7;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body class="fade-in">
   <main>
-    <div class="page-content">
-      <h1>Portfolio</h1>
-      <p>This is the portfolio page.</p>
+    <nav class="top-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="portfolio.html" class="active">Portfolio</a></li>
+        <li><a href="reel.html">Reel</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="section-nav">
+      <a href="sports.html" class="section-link">Sports</a>
+      <a href="branding.html" class="section-link">Branding</a>
     </div>
+
+    <div class="top-right-squares">
+      <div class="square black"></div>
+      <div class="square white"></div>
+    </div>
+
+    <div class="grid-overlay"></div>
+
+    <div class="corner-frame" style="top: 2rem; left: 2rem;"></div>
+    <div class="corner-frame" style="bottom: 2rem; left: 2rem; transform: scaleY(-1);"></div>
+    <div class="corner-frame" style="bottom: 2rem; right: 2rem; transform: scale(-1, -1);"></div>
+
+    <div style="position: absolute; top: 2.25rem; left: 2.25rem; z-index: 10;">
+      <span class="label-tag">[CREATIVE]</span>
+    </div>
+    <div style="position: absolute; bottom: 2.25rem; left: 2.25rem; z-index: 10;">
+      <span class="label-tag">[MEDIA]</span>
+    </div>
+    <div style="position: absolute; bottom: 2.25rem; right: 2.25rem; z-index: 10;">
+      <span class="label-tag">[STORYTELLER]</span>
+    </div>
+
+    <div class="floating-circle"></div>
   </main>
+
+  <script>
+    const grid = document.querySelector('.grid-overlay');
+    const floatingCircle = document.querySelector('.floating-circle');
+
+    let targetX = 0, targetY = 0;
+    let currentX = 0, currentY = 0;
+
+    document.addEventListener("mousemove", (e) => {
+      targetX = (e.clientX / window.innerWidth - 0.5);
+      targetY = (e.clientY / window.innerHeight - 0.5);
+    });
+
+    function lerp(start, end, factor) {
+      return start + (end - start) * factor;
+    }
+
+    function animateParallax() {
+      currentX = lerp(currentX, targetX, 0.08);
+      currentY = lerp(currentY, targetY, 0.08);
+
+      const x = currentX;
+      const y = currentY;
+
+      grid.style.transform = `translate(${x * 40}px, ${y * 40}px)`;
+      floatingCircle.style.transform = `translate(${x * 80}px, ${y * 80}px)`;
+
+      requestAnimationFrame(animateParallax);
+    }
+
+    animateParallax();
+  </script>
+
+  <script>
+    window.onload = () => {
+      const circle = document.querySelector('.floating-circle');
+      let time = 0;
+      const phaseX = Math.random() * 1000;
+      const phaseY = Math.random() * 1000;
+
+      const size = 300;
+      const margin = 50;
+      const usableWidth = window.innerWidth - size - margin * 2;
+      const usableHeight = window.innerHeight - size - margin * 2;
+
+      const baseX = margin + usableWidth / 2;
+      const baseY = margin + usableHeight / 2;
+
+      const ampX = usableWidth / 2;
+      const ampY = usableHeight / 2;
+
+      function wiggle(base, freq, amp, phase) {
+        return base + Math.sin(time * freq + phase) * amp;
+      }
+
+      function animate() {
+        const x = wiggle(baseX, 0.0005, ampX, phaseX);
+        const y = wiggle(baseY, 0.0005, ampY, phaseY);
+
+        circle.style.left = `${x}px`;
+        circle.style.top = `${y}px`;
+
+        const offsetX = (currentX || 0) * 80;
+        const offsetY = (currentY || 0) * 80;
+        circle.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+
+        time += 1;
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    };
+  </script>
 </body>
 </html>

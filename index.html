@@ -4,7 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tyler Powell | Home</title>
+
+  <link rel="stylesheet" href="style.css" />
+
   <style>
+    
+    
     @font-face {
       font-family: 'Adventor';
       src: url('texgyreadventor-bold.otf') format('opentype');
@@ -17,7 +22,7 @@
       background: #F5CB5C;
       font-family: 'Adventor', sans-serif;
     }
-
+    
     main {
       display: flex;
       align-items: center;
@@ -59,7 +64,7 @@
       pointer-events: none;
     }
 
-    .grid-overlay, .noise-overlay {
+    .grid-overlay {
       position: absolute;
       top: 0;
       left: 0;
@@ -74,13 +79,6 @@
                         linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
       background-size: 40px 40px;
     }
-
-    .noise-overlay {
-      background-image: url('./assets/noise.png');
-      background-size: cover;
-      opacity: 0.04;
-    }
-
     .corner-frame {
       position: absolute;
       width: 50px;
@@ -89,7 +87,6 @@
       border-left: 2px solid #242423;
       z-index: 10;
     }
-
     .label-tag {
       font-size: 0.75rem;
       color: #242423;
@@ -98,7 +95,6 @@
       opacity: 0.7;
       font-family: monospace;
     }
-
     .home-links {
       height: 100vh;
       display: flex;
@@ -108,14 +104,12 @@
       flex-direction: column;
       z-index: 100;
     }
-
     .home-nav {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 0.5rem;
     }
-
     .home-nav a {
       font-size: 2.5rem;
       color: #242423;
@@ -124,12 +118,10 @@
       transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
       z-index: 100;
     }
-
     .home-nav a:hover {
       transform: translateY(-4px) scale(1.05);
       opacity: 0.8;
     }
-
     .corner-tjp {
       position: absolute;
       font-size: 1rem;
@@ -141,7 +133,6 @@
       pointer-events: none;
       z-index: 10;
     }
-
     .corner-motion {
       position: absolute;
       font-size: 1rem;
@@ -157,17 +148,20 @@
     }
   </style>
 </head>
-<body>
-  <main>
-    <!-- Top Squares -->
-    <div class="top-right-squares">
-      <div class="square black"></div>
-      <div class="square white"></div>
-    </div>
+<body class="fade-in">
+<main>
+      <!-- Top Squares -->
+      <div class="top-right-squares">
+        <div class="square black"></div>
+        <div class="square white"></div>
+      </div>
 
-    <!-- Grid and Noise -->
+      <!-- Grid, Tags, Links, etc... -->
+
+
+    <!-- Grid  -->
     <div class="grid-overlay"></div>
-    <div class="noise-overlay"></div>
+
 
     <!-- Corner Frames -->
     <div class="corner-frame" style="top: 2rem; left: 2rem;"></div>
@@ -175,7 +169,7 @@
     <div class="corner-frame" style="bottom: 2rem; right: 2rem; transform: scale(-1, -1);"></div>
 
     <!-- Tags -->
-     <div style="position: absolute; top: 2.25rem; left: 2.25rem; z-index: 10;">
+    <div style="position: absolute; top: 2.25rem; left: 2.25rem; z-index: 10;">
       <span class="label-tag">[CREATIVE]</span>
     </div>
     <div style="position: absolute; bottom: 2.25rem; left: 2.25rem; z-index: 10;">
@@ -192,19 +186,19 @@
     <div class="home-links">
       <span class="corner-tjp">TJP</span>
       <div class="home-nav">
-       <a href="portfolio.html" class="jitter-text">Portfolio</a>
-       <a href="reel.html" class="jitter-text">Reel</a>
-       <a href="about.html" class="jitter-text">About</a>
-        <a href="contact.html" class="jitter-text">Contact</a>
+        <a href="portfolio.html" >Portfolio</a>
+        <a href="reel.html" >Reel</a>
+        <a href="about.html" >About</a>
+        <a href="contact.html" >Contact</a>
       </div>
       <span class="corner-motion">Motion</span>
     </div>
-  </main>
-
+  </div>
+</main>
   <!-- Parallax Script -->
   <script>
     const grid = document.querySelector('.grid-overlay');
-    const noise = document.querySelector('.noise-overlay');
+
     const floatingCircle = document.querySelector('.floating-circle');
 
     let targetX = 0, targetY = 0;
@@ -227,7 +221,7 @@
       const y = currentY;
 
       grid.style.transform = `translate(${x * 40}px, ${y * 40}px)`;
-      noise.style.transform = `translate(${x * 25}px, ${y * 25}px)`;
+
       floatingCircle.style.transform = `translate(${x * 80}px, ${y * 80}px)`;
 
       requestAnimationFrame(animateParallax);
